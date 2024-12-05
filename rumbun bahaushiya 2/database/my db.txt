@@ -1,0 +1,86 @@
+CREATE TABLE `books` (
+  `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `book_isbn` varchar(20) COLLATE latin1_general_ci NOT NULL,
+  `book_title` varchar(60) COLLATE latin1_general_ci DEFAULT NULL,
+  `book_author` varchar(60) COLLATE latin1_general_ci DEFAULT NULL,
+  `book_image` varchar(40) COLLATE latin1_general_ci DEFAULT NULL,
+  `ebook` varchar(40) COLLATE latin1_general_ci DEFAULT NULL,
+  `book_descr` text COLLATE latin1_general_ci DEFAULT NULL,
+  `publication_year` int(4) NOT NULL,
+  `author_id` int(10) UNSIGNED NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`book_id`),
+  FOREIGN KEY (`author_id`) REFERENCES `author` (`author_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+CREATE TABLE `songs` (
+  `song_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `song_album` varchar(20) COLLATE latin1_general_ci NOT NULL,
+  `song_title` varchar(60) COLLATE latin1_general_ci DEFAULT NULL,
+  `song_artist` varchar(60) COLLATE latin1_general_ci DEFAULT NULL,
+  `song_image` varchar(40) COLLATE latin1_general_ci DEFAULT NULL,
+  `song_file` varchar(40) COLLATE latin1_general_ci DEFAULT NULL,
+  `song_descr` text COLLATE latin1_general_ci DEFAULT NULL,
+  `publication_year` int(4) NOT NULL,
+  `artist_id` int(10) UNSIGNED NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`song_id`),
+  FOREIGN KEY (`artist_id`) REFERENCES `artist` (`artist_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+CREATE TABLE `admins` (
+  `admin_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  PRIMARY KEY (`admin_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `author` (
+  `author_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `author_name` varchar(60) COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`author_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+CREATE TABLE `artist` (
+  `artist_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `artist_name` varchar(60) COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`artist_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+CREATE TABLE `users` (
+  `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `download` (
+  `download_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `pid` int(10) UNSIGNED NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `ebook` varchar(100) NOT NULL,
+  PRIMARY KEY (`download_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `messages` (
+  `message_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `number` varchar(12) NOT NULL,
+  `message` varchar(500) NOT NULL,
+  PRIMARY KEY (`message_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `shelves` (
+  `shelf_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `pid` int(10) UNSIGNED NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `ebook` varchar(100) NOT NULL,
+  `image` varchar(100) NOT NULL,
+  PRIMARY KEY (`shelf_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
